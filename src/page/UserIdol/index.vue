@@ -3,9 +3,8 @@
     <div class="top">
       <div class="nickname">
         <span>{{nickname}}</span>
-        <button @click="showIdol = !showIdol" class="tail_btn">阵容</button>
       </div>
-      <button @click="$router.push('/')" class="tail_btn">返回</button>
+      <button @click="$router.go(-1)" class="tail_btn">返回</button>
     </div>
     <div class="btn_line">
       <button :class="[active == 0?'tail_btn_info':'','tail_btn']" @click="paixu(0)">稀有度</button>
@@ -17,9 +16,7 @@
       <button :class="[active == 6?'tail_btn_info':'','tail_btn']" @click="paixu(6)">技能</button>
     </div>
     <ul>
-      <li v-for="(item, index) in idol" :key="index">
-        <Idol :item="item"/>
-      </li>
+      <Idol v-for="(item, index) in idol" :key="index" :item="item"/>
     </ul>
   </div>
 </template>

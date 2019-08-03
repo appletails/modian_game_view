@@ -3,28 +3,40 @@
     <div class="top">
       <div class="nickname">
         <span>{{nickname}}</span>
-        <button @click="showIdol = !showIdol" class="tail_btn">阵容</button>
       </div>
       <button @click="$router.push('/')" class="tail_btn">返回</button>
     </div>
+    <div class="line_title"># 出站阵容
+        <button @click="$router.push({path:'/UserIdol',query:{nickname:nickname}})" class="tail_btn">全部角色</button>
+    </div>
     <ul>
-      <li v-for="(item, index) in allIdol" :key="index">
-        <Idol :item="item"/>
-      </li>
+      <Idol v-for="(item, index) in idol" :key="index" :item="item"/>
+    </ul>
+    <div class="line_title"># 我的道具</div>
+    <ul>
+      <Package v-for="(item, i) in packages" :key="i" :item="item"/>
+    </ul>
+    <div class="line_title"># 我的仇人</div>
+    <ul>
+      <Revenge v-for="(item, i) in revenge" :key="i" :item="item"/>
     </ul>
   </div>
 </template>
 
 <script>
 import Idol from "@/components/Idol";
+import Package from "@/components/Package";
+import Revenge from "@/components/Revenge";
 export default {
   components: {
-    Idol
+    Idol,
+    Package,
+    Revenge
   },
   data() {
     return {
       idol: [],
-      allIdol: [],
+      packages: [],
       nickname: [],
       active: null
     };
@@ -39,7 +51,10 @@ export default {
       this.$router.go(-1);
     }
     this.idol = response.data.idol
-    this.allIdol = response.data.idol.concat(response.data.otherIdol);
+    this.packages = response.data.package
+    this.revenge = response.data.revenge.sort((a,b)=>{
+      return (a.num-a.revenge)-(b.num-b.revenge)
+    })
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <li>
     <div class="line">
       <span :class="['one',item.life?'':'error']">{{item.nickname}}</span>
       <span class="two">{{item.level}}</span>
@@ -16,7 +16,7 @@
       </span>
       <span :class="['fore',item.skill == '未知'?'':'warning']">{{item.skill}}</span>
     </div>
-  </div>
+  </li>
 </template>
 
 <script>
