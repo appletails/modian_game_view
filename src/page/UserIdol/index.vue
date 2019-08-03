@@ -3,6 +3,7 @@
     <div class="top">
       <div class="nickname">
         <span>{{nickname}}</span>
+        <button @click="showIdol = !showIdol" class="tail_btn">阵容</button>
       </div>
       <button @click="$router.push('/')" class="tail_btn">返回</button>
     </div>
@@ -16,22 +17,22 @@
       <button :class="[active == 6?'tail_btn_info':'','tail_btn']" @click="paixu(6)">技能</button>
     </div>
     <ul>
-      <li v-for="(item, index) in user.idol" :key="index">
-        <UserIdol :item="item" />
+      <li v-for="(item, index) in idol" :key="index">
+        <Idol :item="item"/>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import UserIdol from "@/components/UserIdol";
+import Idol from "@/components/Idol";
 export default {
   components: {
-    UserIdol
+    Idol
   },
   data() {
     return {
-      user: {},
+      idol: [],
       nickname: [],
       active: null
     };
@@ -41,30 +42,59 @@ export default {
       const lvUp = { UR: 4, SSR: 3, SR: 2, R: 1, N: 0 };
       switch (i) {
         case 0:
-          this.user.idol = this.user.idol.sort(
-            (a, b) => lvUp[b.level] - lvUp[a.level]
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              lvUp[b.level] - lvUp[a.level] ||
+              b.attack - a.attack ||
+              b.defense - a.defense ||
+              b.life - a.life
           );
           break;
         case 1:
-          this.user.idol = this.user.idol.sort((a, b) => b.star - a.star);
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              b.star - a.star ||
+              b.attack - a.attack ||
+              b.defense - a.defense ||
+              b.life - a.life
+          );
           break;
         case 2:
-          this.user.idol = this.user.idol.sort((a, b) => b.attack - a.attack);
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              b.attack - a.attack || b.defense - a.defense || b.life - a.life
+          );
           break;
         case 3:
-          this.user.idol = this.user.idol.sort((a, b) => b.defense - a.defense);
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              b.defense - a.defense || b.attack - a.attack || b.life - a.life
+          );
           break;
         case 4:
-          this.user.idol = this.user.idol.sort((a, b) => b.life - a.life);
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              b.life - a.life || b.attack - a.attack || b.defense - a.defense
+          );
           break;
         case 5:
-          this.user.idol = this.user.idol.sort((a, b) => b.num - a.num);
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              b.num - a.num ||
+              b.attack - a.attack ||
+              b.defense - a.defense ||
+              b.life - a.life
+          );
           break;
         case 6:
           const skills = await this.$account.getSkill();
-          this.user.idol = this.user.idol.sort((a, b) => {
-            return skills[b.skill] - skills[a.skill];
-          });
+          this.allIdol = this.allIdol.sort(
+            (a, b) =>
+              skills[b.skill] - skills[a.skill] ||
+              b.attack - a.attack ||
+              b.defense - a.defense ||
+              b.life - a.life
+          );
           break;
       }
       this.active = i;
@@ -72,12 +102,12 @@ export default {
   },
   async created() {
     this.nickname = this.$route.query.nickname;
-    const response = await this.$account.getOneUser(this.nickname);
+    const response = await this.$account.getUserIdol(this.nickname);
     if (response.code !== 200) {
       alert(`查找失败：${response.msg}`);
       this.$router.go(-1);
     }
-    this.user = response.data;
+    this.idol = response.data.idol
   }
 };
 </script>

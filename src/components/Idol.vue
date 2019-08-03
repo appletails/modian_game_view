@@ -22,7 +22,7 @@
 <script>
 import { stars } from "@/filters";
 export default {
-  name: "UserIdol",
+  name: "Idol",
   props: ["item"],
   filters: {
     stars

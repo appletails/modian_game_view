@@ -4,7 +4,7 @@
     class="name"
     v-for="(item, index) in user"
     :key="index"
-    @click="$router.push({path:'/user',query:{nickname:item.nickname[0]}})"
+    @click="$router.push({path:'/UserInfo',query:{nickname:item.nickname[0]}})"
     >
       <div>
         <span>{{index+1}}、{{item.nickname[0]}}</span>

@@ -27,8 +27,12 @@ export default {
         }
         return this.skill
       },
-      getOneUser: async function (nickname) {
-        let response = await axios.post(`http://172.81.250.91:82/oneUser`, {nickname: nickname})
+      getUserInfo: async function (nickname) {
+        let response = await axios.post(`http://172.81.250.91:82/userInfo`, {nickname: nickname})
+        return response.data
+      },
+      getUserIdol: async function (nickname) {
+        let response = await axios.post(`http://172.81.250.91:82/userIdol`, {nickname: nickname})
         return response.data
       }
     }
