@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <Header />
     <router-view/>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    Header
+  }
 }
 </script>
 
@@ -14,11 +19,9 @@ export default {
 html{
   width: 100%;
   height: 100%;
-  // background-image: url(http://www.crean.top/pocket/data/2019/6/wxj/bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  // background-color: @primary;
 }
 body{
   width: 100%;

@@ -1,22 +1,16 @@
 <template>
   <div>
-    <div class="top">
-      <div class="nickname">
-        <span>{{nickname}}</span>
-      </div>
-      <button @click="$router.push('/')" class="tail_btn">返回</button>
-    </div>
     <div class="line_title"># 出站阵容
         <button @click="$router.push({path:'/UserIdol',query:{nickname:nickname}})" class="tail_btn">全部角色</button>
     </div>
     <ul>
       <Idol v-for="(item, index) in idol" :key="index" :item="item"/>
     </ul>
-    <div class="line_title"># 我的道具</div>
+    <div class="line_title" v-if="packages.length"># 我的道具</div>
     <ul>
       <Package v-for="(item, i) in packages" :key="i" :item="item"/>
     </ul>
-    <div class="line_title"># 我的仇人</div>
+    <div class="line_title" v-if="revenge.length"># 我的仇人</div>
     <ul>
       <Revenge v-for="(item, i) in revenge" :key="i" :item="item"/>
     </ul>
@@ -37,6 +31,7 @@ export default {
     return {
       idol: [],
       packages: [],
+      revenge: [],
       nickname: [],
       active: null
     };

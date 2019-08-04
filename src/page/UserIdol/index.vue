@@ -1,11 +1,5 @@
 <template>
   <div>
-    <div class="top">
-      <div class="nickname">
-        <span>{{nickname}}</span>
-      </div>
-      <button @click="$router.go(-1)" class="tail_btn">返回</button>
-    </div>
     <div class="btn_line">
       <button :class="[active == 0?'tail_btn_info':'','tail_btn']" @click="paixu(0)">稀有度</button>
       <button :class="[active == 1?'tail_btn_info':'','tail_btn']" @click="paixu(1)">星级</button>
@@ -16,7 +10,7 @@
       <button :class="[active == 6?'tail_btn_info':'','tail_btn']" @click="paixu(6)">技能</button>
     </div>
     <ul>
-      <Idol v-for="(item, index) in idol" :key="index" :item="item"/>
+      <Idol v-for="(item, index) in idol" :key="index" :item="item" />
     </ul>
   </div>
 </template>
@@ -36,10 +30,14 @@ export default {
   },
   methods: {
     async paixu(i) {
+      if (i === this.active) {
+        this.idol.reverse();
+        return;
+      }
       const lvUp = { UR: 4, SSR: 3, SR: 2, R: 1, N: 0 };
       switch (i) {
         case 0:
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
               lvUp[b.level] - lvUp[a.level] ||
               b.attack - a.attack ||
@@ -48,7 +46,7 @@ export default {
           );
           break;
         case 1:
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
               b.star - a.star ||
               b.attack - a.attack ||
@@ -57,25 +55,31 @@ export default {
           );
           break;
         case 2:
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
-              b.attack - a.attack || b.defense - a.defense || b.life - a.life
+              b.attack - a.attack ||
+              b.defense - a.defense ||
+              b.life - a.life
           );
           break;
         case 3:
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
-              b.defense - a.defense || b.attack - a.attack || b.life - a.life
+              b.defense - a.defense ||
+              b.attack - a.attack ||
+              b.life - a.life
           );
           break;
         case 4:
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
-              b.life - a.life || b.attack - a.attack || b.defense - a.defense
+              b.life - a.life ||
+              b.attack - a.attack ||
+              b.defense - a.defense
           );
           break;
         case 5:
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
               b.num - a.num ||
               b.attack - a.attack ||
@@ -85,7 +89,7 @@ export default {
           break;
         case 6:
           const skills = await this.$account.getSkill();
-          this.allIdol = this.allIdol.sort(
+          this.idol = this.idol.sort(
             (a, b) =>
               skills[b.skill] - skills[a.skill] ||
               b.attack - a.attack ||
@@ -104,21 +108,17 @@ export default {
       alert(`查找失败：${response.msg}`);
       this.$router.go(-1);
     }
-    this.idol = response.data.idol
+    this.idol = response.data.idol;
+    this.paixu(0);
   }
 };
 </script>
 
 <style lang="less" scoped>
-.top {
-  .flex;
+.nickname {
   padding: 10px;
-  background-color: #fff;
-  border-bottom: 1px solid @border;
-  .nickname {
-    font-size: 16px;
-    font-weight: bold;
-  }
+  font-size: 16px;
+  font-weight: bold;
 }
 .btn_line {
   .flex;
