@@ -54,3 +54,81 @@
   line-height: 2rem;
   margin: 10px 10px 0;
 }
+.icon{
+  background-image: url('http://www.crean.top/chess/img/icon.png');
+  background-size: auto 20px;
+  background-repeat: no-repeat;
+  display: block;
+  height: 24px;
+  width: 22px;
+  background-position-Y: center;
+  &_star{
+    background-position-x: 0;
+  }
+  &_moon{
+    background-position-x: -21px;
+  }
+  &_sun{
+    background-position-x: -42px;
+  }
+  &_crown{
+    background-position-x: -63px;
+    width: 28px;
+  }
+  &_attack{
+    background-position-x: -110px;
+    margin-right: 2px;
+  }
+  &_defense{
+    background-position-x: -90px;
+    width: 20px;
+    margin-right: 2px;
+  }
+  &_life{
+    background-position-x: -132px;
+    margin-right: 2px;
+  }
+  &_battle{
+    background-position-x: -155px;
+    margin-right: 2px;
+  }
+}
+@n:#eeeeee;
+@r:#bdf2d5;
+@sr:#7ad9f5;
+@ssr:#ac8daf;
+@ur:#f7b71d;
+.level{
+  display: block;
+  margin: auto;
+  height: 24px;
+  line-height: 24px;
+  width: 46px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  &_n{
+    background-color: @n;
+  }
+  &_r{
+    background-color: @r;
+  }
+  &_sr{
+    background-color: @sr;
+  }
+  &_ssr{
+    background-color: @ssr;
+  }
+  &_ur{
+    background-color: @ur;
+  }
+}
+.gray { 
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray;
+  opacity: .7;
+}

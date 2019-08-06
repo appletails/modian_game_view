@@ -75,14 +75,5 @@ export default {
 }
 ul {
   margin: 10px;
-  li {
-    // .flex;
-    font-size: 14px;
-    justify-content: flex-start;
-    padding: 5px;
-    margin-top: 10px;
-    border: 1px solid @border;
-    border-radius: 6px;
-  }
 }
 </style>
