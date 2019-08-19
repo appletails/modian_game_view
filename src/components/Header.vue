@@ -1,7 +1,6 @@
 <template>
   <div class="head">
-    <button v-if="nickname !== '摩点小游戏数据'" @click="$router.push('/')" class="tail_btn">首页</button>
-    <span v-else></span>
+    <span class="logo" @click="$router.push('/')" />
     <span>{{nickname}}</span>
     <button v-if="nickname !== '摩点小游戏数据'" @click="$router.go(-1)" class="tail_btn">返回</button>
     <span v-else></span>
@@ -42,5 +41,15 @@ export default {
   color: @title;
   padding: 0 10px;
   .flex;
+  span{
+    min-width: 54px;
+  }
+  .logo{
+    height: 36px;
+    background-image: url(http://www.crean.top/chess/img/logo.jpg);
+    background-repeat: no-repeat;
+    background-size: 36px auto;
+    background-position: left center;
+  }
 }
 </style>

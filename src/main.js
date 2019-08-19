@@ -9,7 +9,7 @@ import store from './store'
 Vue.use(api)
 
 Vue.config.productionTip = false
-
+export let bus = new Vue()
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

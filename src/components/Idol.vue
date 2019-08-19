@@ -11,7 +11,7 @@
         <i class="icon icon_moon" v-for="i in star[2]" :key="i"></i>
         <i class="icon icon_star" v-for="i in star[3]" :key="i"></i>
       </div>
-      <div :class="['fore',item.skill == '未知'?'':'warning']">{{item.skill}}</div>
+      <div :class="['fore',item.skill == '未知'?'':'skill']">{{item.skill}}</div>
     </div>
     <div class="line">
       <div class="one icons">
@@ -26,7 +26,7 @@
         <i :class="['icon','icon_life',item.life?'':'gray']"></i>
         <span>{{item.life}}/{{item.alllife}}</span>
       </div>
-      <div class="fore icons" v-if="$route.name === 'UserInfo'">
+      <div class="fore icons" v-if="num">
         <i class="icon icon_battle"></i>
         <span>{{item.battle}}</span>
       </div>
@@ -39,7 +39,7 @@
 import { stars } from "@/filters";
 export default {
   name: "Idol",
-  props: ['item'],
+  props: ['item','num'],
   computed:{
     star(){
       let starN = this.item.star % 4
@@ -56,41 +56,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
-li {
-  font-size: 14px;
-  justify-content: flex-start;
-  margin-top: 10px;
-  border: 1px solid @border;
-  border-radius: 6px;
-  .line {
-    .flex;
-    div {
-      padding: 5px 0;
-      line-height: 1.5rem;
-      text-align: center;
-      &:not(:last-of-type) {
-        border-right: 1px solid @border;
-      }
-    }
-    & .icons{
-      .flex;
-      justify-content: center;
-    }
-    .one {
-      width: 22%;
-    }
-    .two {
-      width: 24%;
-    }
-    .three {
-      width: 31%;
-    }
-    .fore {
-      width: 25%;
-    }
-    &:first-of-type {
-      border-bottom: 1px solid @border;
+.line {
+  .flex;
+  div {
+    padding: 5px 0;
+    line-height: 1.5rem;
+    text-align: center;
+    &:not(:last-of-type) {
+      border-right: 1px solid @border;
     }
   }
+  & .icons{
+    .flex;
+    justify-content: center;
+  }
+  .one {
+    width: 29%;
+  }
+  .two {
+    width: 20%;
+  }
+  .three {
+    width: 25%;
+  }
+  .fore {
+    width: 22%;
+  }
+  &:first-of-type {
+    border-bottom: 1px solid @border;
+  }
+}
+.skill{
+  color:@skill;
 }
 </style>

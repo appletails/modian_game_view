@@ -34,6 +34,14 @@ export default {
       getUserIdol: async function (nickname) {
         let response = await axios.post(`http://172.81.250.91:82/userIdol`, {nickname: nickname})
         return response.data
+      },
+      allIdol: null,
+      getAllIdol: async function () {
+        if (!this.allIdol) {
+          let response = await axios.get(`http://172.81.250.91:82/allIdol`)
+          this.allIdol = response.data
+        }
+        return this.allIdol
       }
     }
   }

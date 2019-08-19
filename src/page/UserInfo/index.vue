@@ -1,16 +1,17 @@
 <template>
   <div>
-    <div class="line_title"># 出站阵容
-        <button @click="$router.push({path:'/UserIdol',query:{nickname:nickname}})" class="tail_btn">全部角色</button>
-    </div>
+    <Title>
+      <button slot="btn" @click="$router.push({path:'/UserIdol',query:{nickname:nickname}})" class="tail_btn">全部角色</button>
+    </Title>
     <ul>
-      <Idol v-for="(item, index) in idol" :key="index" :item="item"/>
+      <Idol v-for="(item, index) in idol" :key="index" :item="item" :num="showNum"/>
     </ul>
-    <div class="line_title" v-if="packages.length"># 我的道具</div>
+    
+    <Title v-if="packages.length" title="# 我的道具"/>
     <ul>
       <Package v-for="(item, i) in packages" :key="i" :item="item"/>
     </ul>
-    <div class="line_title" v-if="revenge.length"># 我的仇人</div>
+    <Title v-if="revenge.length" title="# 我的仇人"/>
     <ul>
       <Revenge v-for="(item, i) in revenge" :key="i" :item="item"/>
     </ul>
@@ -19,13 +20,15 @@
 
 <script>
 import Idol from "@/components/Idol";
+import Title from "@/components/Title";
 import Package from "@/components/Package";
 import Revenge from "@/components/Revenge";
 export default {
   components: {
     Idol,
     Package,
-    Revenge
+    Revenge,
+    Title
   },
   data() {
     return {
@@ -33,7 +36,8 @@ export default {
       packages: [],
       revenge: [],
       nickname: [],
-      active: null
+      active: null,
+      showNum: true
     };
   },
   methods: {
@@ -75,5 +79,12 @@ export default {
 }
 ul {
   margin: 10px;
+  li{
+    font-size: 14px;
+    justify-content: flex-start;
+    margin-top: 10px;
+    border: 1px solid @border;
+    border-radius: 6px;
+  }
 }
 </style>
